@@ -15,13 +15,13 @@ This is the final project for my machine learning class
 
 - Create a new virtual environment and activate it :
 ```bash
-	pyenv virtualenv 3.9.0 clustering_OFF
-	pyenv activate clustering_OFF
+	pyenv virtualenv clustering_OFF && pyenv activate clustering_OFF
 ```
 
 - Install required librairies :
-
+```bash
   	pip install -r requirements
+```
 
 While you work on the project, don't forget to update the`requirements.txt`
 
