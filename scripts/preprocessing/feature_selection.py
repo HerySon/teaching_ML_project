@@ -11,10 +11,8 @@ def feature_selection(df: pd.DataFrame) -> pd.DataFrame:
         dimmed pertinent for training
     """
     # TODO Remove this block when data cleaning task has been merged
-    print('NaN rate per colum:')
     for col in df.columns:
         sum = df[col].isna().sum()
-        print(col + ': ' + str(sum/len(df)*100) + '%')
         if sum/len(df)*100 > 50:
             df.drop(columns=col, inplace=True)
     #################################################################        
