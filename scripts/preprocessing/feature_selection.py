@@ -5,7 +5,7 @@ The Feature Selection Module intends to realize automated tasks related to featu
 import pandas as pd
 
 
-def feature_selection(df: pd.DataFrame) -> pd.DataFrame:
+def feature_selection(df: pd.DataFrame):
     """
         Return a Dataframe containing only the columns
         dimmed pertinent for training
@@ -22,4 +22,4 @@ def feature_selection(df: pd.DataFrame) -> pd.DataFrame:
     'nutrition-score-fr_100g','energy_100g', 'product_name', 'states', 'states_en', 'brands', 'brands_tags'
     ]
     df.drop(columns=df.columns.intersection(columns), inplace=True)
-    return df
+
