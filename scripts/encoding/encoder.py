@@ -3,7 +3,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
-ENCODER_TOOLS = {
+_ENCODER_TOOLS = {
     'tfidf': TfidfVectorizer(),
     'vect': CountVectorizer()
 }
