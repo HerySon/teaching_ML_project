@@ -16,67 +16,93 @@ from plotly.subplots import make_subplots
 from plotly.tools import FigureFactory as FF
 import dash_bootstrap_components as dbc
 
+
+
+#Charge dataFrame
 df=pd.read_csv("./en.openfoodfacts.org.products.csv",
                      sep="\t", encoding="utf-8", nrows=30000, low_memory=False)
-
+#List features
 all_dims = list(df.columns)
 
-# df = px.data.tips()
+# Outliers Layout
 layout = html.Div([
-    
-      dcc.Dropdown(
-        
+        html.H1(
+        children='Outliers',
+        ),
+
+        # Dropdown select category 
+        dcc.Dropdown(
         id="dropdown",
         options=[{"label": x, "value": x} 
                  for x in all_dims ],
         value=all_dims[116],
         multi=False
     ),
-    dcc.Graph(id="ox-plot"),
-    dcc.Graph(id="ox-d"),
-    dcc.Graph(id="lin"),
+
+    html.Hr(className="my-2"),
+
+    #Card Boxplot
+    dbc.Card(
+       dbc.CardBody(    [
+              html.H2(
+        children='BoxPlot',
+    ),
+                    dcc.Graph(id="boxplot")
+                    ]
+                    ),
+       className="mb-3",
+       style={'margin-top':'1em'}
+    ),
+    #Card Histogramme
+    dbc.Card(
+       dbc.CardBody(    [
+              html.H2(
+        children='Histogram',
+    ),
+                    dcc.Graph(id="histo")
+                    ]
+                    ),
+       className="mb-3",
+       style={'margin-top':'1em'}
+    ),
+    
+    #Card Line
+    dbc.Card(
+       dbc.CardBody(    [
+              html.H2(
+        children='Line',
+    ),
+                    dcc.Graph(id="line")
+                    ]
+                    ),
+       className="mb-3",
+       style={'margin-top':'1em'}
+    ),
     
 ])
 
 
 @app.callback(
-    Output("ox-plot","figure"), 
+    Output("boxplot","figure"), 
     [Input("dropdown", "value")])
 def update_bar_chart(cat):
    
     
     return px.box(df,x=cat)
 
+#Callback : Histo
 @app.callback(
-    Output("ox-d","figure"), 
+    Output("histo","figure"), 
     [Input("dropdown", "value")])
 def update_bar_chart(cat):
-   
-    
     return px.histogram(df,x=cat)
 
 
+#Callback : Line
 @app.callback(
-    Output("lin","figure"), 
+    Output("line","figure"), 
     [Input("dropdown", "value")])
 def update_bar_chart(cat):
    
     
     return px.line(df,x=cat)
-
-
-#  plt.subplots(2)
-#     fig = make_subplots(rows=3,cols=1)
-#     # count_social = pd.DataFrame.from_dict(data,orient='index')
-#     # count_social.columns= [cat]
-
-#     # boxplot = go.Figure(data=[go.Histogram(y=data[cat])])
-#     # print(df[cat])
-#     # histo=[
-#     #     go.Histogram(x=df[cat].values.tolist())
-#     #     ]
-    
-#     histo= px.histogram(df,y=cat)
-#     boxplot=
-#     fig.append_trace(histo, row=1,col=1)
-#     fig.append_trace(boxplot, 2,1)

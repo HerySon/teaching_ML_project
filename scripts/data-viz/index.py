@@ -4,9 +4,10 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import app1, app2, app3
+from apps import compare, outilers
 from nav import navbar
 
+#Global layout
 app.layout =  html.Div(
     [
     dcc.Location(id='url', refresh=False),
@@ -24,15 +25,13 @@ app.layout =  html.Div(
 @app.callback(Output('page-content', 'children'),
               Input('url', 'pathname'))
 def display_page(pathname):
-    
+    #Routing
     if pathname == '/apps/comparate':
-        return app1.layout
+        return compare.layout
     elif pathname == '/apps/outliers':
-        return app2.layout    
-    elif pathname == '/apps/outliers2':
-        return app3.layout
+        return outilers.layout    
     else:
         return '404'
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
