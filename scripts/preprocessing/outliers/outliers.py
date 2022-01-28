@@ -5,7 +5,7 @@ Module used to get rid of outliers in the dataset
 import pandas as pd
 
 
-def outliers_del(df):
+def outliers_del(df: pd.DataFrame):
     """
     Get rid of outliers using the InterQuartile Range method
 
