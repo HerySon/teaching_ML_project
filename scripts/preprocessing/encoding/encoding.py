@@ -29,6 +29,10 @@ def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEnco
         logging.warning("Encoder tool doesn't exist or is not supported, automatically switch to OneHotEncoder")
     # Initialize the vectorizer object
     vectorizer = _ENCODER_TOOLS.get(encoder)()
+    # Checking if the columns list is good
+    if columns is None or columns in dataframe.columns:
+        logging.error("Please check your columns list ! Invalid column name or not in dataframe")
+        exit()
     # Vectorize all dataframe
     feature_encoded = vectorizer.fit_transform(dataframe[columns])
     dataframe[vectorizer.get_feature_names_out()] = DataFrame.sparse.from_spmatrix(feature_encoded)
