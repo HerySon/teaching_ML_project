@@ -25,7 +25,7 @@ def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEnco
     """
     # Checking if the encoder parameter it's correct
     if encoder is None or encoder not in _ENCODER_TOOLS:
-        use_encoder = 'CountVectorizer'
+        encoder = 'OneHotEncoder'
         logging.warning("Encoder tool doesn't exist or is not supported, automatically switch to OneHotEncoder")
     # Initialize the vectorizer object
     vectorizer = _ENCODER_TOOLS.get(encoder)()
