@@ -37,4 +37,4 @@ def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEnco
     feature_encoded = vectorizer.fit_transform(dataframe[columns])
     dataframe[vectorizer.get_feature_names_out()] = DataFrame.sparse.from_spmatrix(feature_encoded)
     # Drop preview columns
-    dataframe = dataframe.drop(columns, axis=1, inplace=True)
+    dataframe.drop(columns, axis=1, inplace=True)
