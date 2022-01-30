@@ -30,7 +30,7 @@ def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEnco
     # Initialize the vectorizer object
     vectorizer = _ENCODER_TOOLS.get(encoder)()
     # Checking if the columns list is good
-    if columns is None or columns in dataframe.columns:
+    if not columns or not set(columns).issubset(dataframe.columns):
         logging.error("Please check your columns list ! Invalid column name or not in dataframe")
         exit()
     # Vectorize all dataframe
