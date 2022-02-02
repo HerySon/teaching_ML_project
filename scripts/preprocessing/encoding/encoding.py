@@ -14,7 +14,8 @@ _ENCODER_TOOLS = {
 }
 
 
-def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEncoder') -> None:
+def simple_encoder(dataframe: DataFrame, columns: List[str], 
+                   encoder='OneHotEncoder', sparse=False) -> None:
     """
     A simple encoder that allows you to encode categorical feature.
     It also includes the ability to encode document with CountVectorizer or TfidfVectorizer.
@@ -23,20 +24,21 @@ def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEnco
     :param columns: list of columns to process
     :param encoder: encoder use into `TfidfVectorizer`, `CountVectorizer` and  `OneHotEncoder`,
     by default is `OneHotEncoder`
+    :param sparse: whether to return a sparse matrix after encoding. Default to False
     """
     # Checking if the encoder parameter it's correct
     if encoder is None or encoder not in _ENCODER_TOOLS:
         encoder = 'OneHotEncoder'
         logging.warning("Encoder tool doesn't exist or is not supported, automatically switch to OneHotEncoder")
     # Initialize the vectorizer object
-    vectorizer = _ENCODER_TOOLS.get(encoder)()
+    vectorizer = _ENCODER_TOOLS.get(encoder)(sparse=sparse)
     # Checking if the columns list is good
     if not columns or not set(columns).issubset(dataframe.columns):
         logging.error("Please check your columns list ! Invalid column name or not in dataframe")
         sys.exit(1)
     # Encode columns selected for encoding
     feature_encoded = vectorizer.fit_transform(dataframe[columns])
-    dataframe[vectorizer.get_feature_names_out()] = DataFrame.sparse.from_spmatrix(feature_encoded)
+    dataframe[vectorizer.get_feature_names_out()] = feature_encoded
     # Drop columns that where encoded
     dataframe.drop(columns, axis=1, inplace=True)
 
