@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import logging
+import sys
 from pandas import DataFrame
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
@@ -18,7 +19,7 @@ def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEnco
     A simple encoder that allows you to encode categorical feature.
     It also includes the ability to encode document with CountVectorizer or TfidfVectorizer.
 
-    :param dataframe: using for encoding feature
+    :param dataframe: raw data frame
     :param columns: list of columns to process
     :param encoder: encoder use into `TfidfVectorizer`, `CountVectorizer` and  `OneHotEncoder`,
     by default is `OneHotEncoder`
@@ -32,9 +33,16 @@ def simple_encoder(dataframe: DataFrame, columns: List[str], encoder='OneHotEnco
     # Checking if the columns list is good
     if not columns or not set(columns).issubset(dataframe.columns):
         logging.error("Please check your columns list ! Invalid column name or not in dataframe")
-        exit()
-    # Vectorize all dataframe
+        sys.exit(1)
+    # Encode columns selected for encoding
     feature_encoded = vectorizer.fit_transform(dataframe[columns])
     dataframe[vectorizer.get_feature_names_out()] = DataFrame.sparse.from_spmatrix(feature_encoded)
-    # Drop preview columns
+    # Drop columns that where encoded
     dataframe.drop(columns, axis=1, inplace=True)
+
+    # TODO:
+    # add an option or method to automatically detect columns to encode (based on dtype) so that 
+    # columns argument could be passed as kwarg.
+    # By default the desired behavior would be to load the raw dataframe with all relevant columns
+    # (can be filtered by feature_selection.py), autodetect columns to encode and return dataframe 
+    # with encoded features
