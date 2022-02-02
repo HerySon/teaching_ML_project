@@ -30,6 +30,7 @@ def feature_selection(dataframe: pd.DataFrame, columns: Optional[Union[str, list
 
     #TODO precise labels params hint when typecheck will be added
     labels: Optional, 
+        Predicted labels of clustering algorithm that will be uses for feature selection
         Required if using 'kbest' or 'genericunivariateselect' as method
         
     """  
