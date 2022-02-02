@@ -4,7 +4,7 @@ This is the final project for my machine learning class
 
 ## Content directories
 
-- raw_data: store here your small additional datasets (<50Mo)
+- data: store here your small additional datasets (<50Mo)
 - models : store your trained models
 - tests: store here your code dedicated to small tests 
 - notebooks: store here your notebooks dedicated to analyses
