@@ -38,7 +38,7 @@ def clean_by_impute(df,column,method='default'):
 
 def impute_empty_value(df,column):
     """
-    Replace Nan values in a specified column by an empty string
+    Replace Nan values in a specified column by an apporpriate default value
     """
     if(df.dtypes[column] == np.object):
         df[column].fillna("", inplace=True)
