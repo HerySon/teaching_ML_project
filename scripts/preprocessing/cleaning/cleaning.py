@@ -19,7 +19,7 @@ def clean_by_delete(df,percent=0):
 
 def clean_by_impute(df,column,method='default'):
     """
-    Replace Nan values in a specified column by the mean/median value of that column
+    Replace Nan values in a specified column by using a given method
 
     param:
     df -- dataframe
