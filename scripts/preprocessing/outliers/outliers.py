@@ -4,7 +4,6 @@ Module used to get rid of outliers in the dataset
 
 import pandas as pd
 
-
 def process(df, action='replace') -> df_out:
     """ Process outliers using the InterQuartile Range method
 
