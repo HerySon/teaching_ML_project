@@ -17,7 +17,7 @@ data = get_data(file_path = "./data/en.openfoodfacts.org.products.csv",
 all_dims = list(data.columns)
 
 # Compare Layout
-layout = dbc.Container([
+layout = dbc.Container([    
     html.H1(
         children='Compare',
     ),
@@ -29,12 +29,11 @@ layout = dbc.Container([
         value=all_dims[56:58],
         multi=True
     ),
-     
     dbc.Alert("you can search the different features to compare them", color="light"),
     html.Hr(className="my-2"),
     
-    #Card Scatter Matrix
-        dbc.Card(
+    # Card Scatter Matrix
+    dbc.Card(
        dbc.CardBody([
         html.H2(
         children='Scatter matrix plots',
@@ -52,7 +51,7 @@ layout = dbc.Container([
     Output(component_id="scatter_matrix", component_property="figure"), 
     Input(component_id="dropdown", component_property="value")
     )
-def update_bar_chart(dims):
+def update_graph(dims):
     fig = px.scatter_matrix(
         data, dimensions=dims)
     fig.update_traces(diagonal_visible=False,showupperhalf=True,showlowerhalf=True)
