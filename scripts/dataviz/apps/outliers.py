@@ -16,11 +16,11 @@ from plotly.subplots import make_subplots
 from plotly.tools import FigureFactory as FF
 import dash_bootstrap_components as dbc
 
+from scripts.data_loader import get_data
 
-
-#Charge dataFrame
-df=pd.read_csv("./en.openfoodfacts.org.products.csv",
-                     sep="\t", encoding="utf-8", nrows=30000, low_memory=False)
+# Loads dataFrame
+df = get_data(file_path = "./data/en.openfoodfacts.org.products.csv", 
+                   nrows=30000)
 #List features
 all_dims = list(df.columns)
 

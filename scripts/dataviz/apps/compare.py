@@ -2,13 +2,15 @@ from dash import html,dcc
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
-from app import app
+from scripts.dataviz.app import app
 
 import plotly.express as px
 import pandas as pd
 
-data=pd.read_csv("./en.openfoodfacts.org.products.csv",
-                     sep="\t", encoding="utf-8", nrows=30000, low_memory=False)
+from scripts.data_loader import get_data
+
+data = get_data(file_path = "./data/en.openfoodfacts.org.products.csv",
+                nrows=30000)
 
 all_dims = list(data.columns)
 
