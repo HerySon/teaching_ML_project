@@ -1,4 +1,6 @@
-from dash import html,dcc
+# from dash import html,dcc
+import dash_core_components as dcc
+from dash import html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
@@ -17,14 +19,14 @@ all_dims = list(data.columns)
 # Compare Layout
 layout = dbc.Container([
     html.H1(
-        children='Comparate',
+        children='Compare',
     ),
     # Dropdown select category 
      dcc.Dropdown(
         id="dropdown",
         options=[{"label": x, "value": x} 
                  for x in all_dims],
-        value=all_dims[56:58 ],
+        value=all_dims[56:58],
         multi=True
     ),
      
@@ -35,9 +37,9 @@ layout = dbc.Container([
         dbc.Card(
        dbc.CardBody([
         html.H2(
-        children='Scatter Matrix',
+        children='Scatter matrix plots',
         ),
-        dcc.Graph(id="scatter_matrix"),
+        dcc.Graph(id="scatter_matrix", figure={}),
         dbc.Alert("Tips: use lasso to select points and compare", color="secondary"),
         ]),
        className="mb-3",
@@ -47,9 +49,11 @@ layout = dbc.Container([
 ])
 
 @app.callback(
-    Output("scatter_matrix", "figure"), 
-    [Input("dropdown", "value")])
+    Output(component_id="scatter_matrix", component_property="figure"), 
+    Input(component_id="dropdown", component_property="value")
+    )
 def update_bar_chart(dims):
     fig = px.scatter_matrix(
         data, dimensions=dims)
+    fig.update_traces(diagonal_visible=False,showupperhalf=True,showlowerhalf=True)
     return fig

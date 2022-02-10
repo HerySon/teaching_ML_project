@@ -1,10 +1,11 @@
-from dash import dcc,html
+from dash import dcc
+from dash import html
 
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import compare, outilers
+from apps import compare, outliers
 from nav import navbar
 
 #Global layout
@@ -26,10 +27,10 @@ app.layout =  html.Div(
               Input('url', 'pathname'))
 def display_page(pathname):
     #Routing
-    if pathname == '/apps/comparate':
+    if pathname == '/apps/compare':
         return compare.layout
     elif pathname == '/apps/outliers':
-        return outilers.layout    
+        return outliers.layout    
     else:
         return '404'
 

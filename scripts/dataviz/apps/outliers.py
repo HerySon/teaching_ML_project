@@ -1,7 +1,7 @@
 from cmath import log
 from gc import collect
 import dash_core_components as dcc
-import dash_html_components as html
+from dash import html
 from dash.dependencies import Input, Output
 
 from app import app
@@ -70,7 +70,7 @@ layout = html.Div([
     dbc.Card(
        dbc.CardBody(    [
               html.H2(
-        children='Line',
+        children='Line plot',
     ),
                     dcc.Graph(id="line")
                     ]
