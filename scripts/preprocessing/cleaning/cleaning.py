@@ -2,22 +2,23 @@ import pandas as pd
 import numpy as np
 
 
-def clean_by_delete(df,percent=0):
+def clean_by_delete(df: pd.DataFrame, percent=0):
     """
     Drop columns that does not have any values
     Drop duplicates lines in the dataframe
-    Drop all columns that doesn't posses at least the percentage required of actual values
+    Drop all columns that doesn't possess at least the percentage required of actual values
 
     param:
     df -- dataframe
     percent -- percent of actual values needed (ex : 50/60/70)
     """
-    df.dropna(how='all', axis = 1, inplace=True)
+    df.dropna(how='all', axis=1, inplace=True)
     df.drop_duplicates(inplace=True)
-    thresh = len(df) * (percent/100)
-    df.dropna(thresh = thresh, axis = 1, inplace=True)
+    thresh = len(df) * (percent / 100)
+    df.dropna(thresh=thresh, axis=1, inplace=True)
 
-def clean_by_impute(df,column,method='default'):
+
+def clean_by_impute(df: pd.DataFrame, column, method='default'):
     """
     Replace Nan values in a specified column by using a given method
 
@@ -26,23 +27,24 @@ def clean_by_impute(df,column,method='default'):
     column -- column name in string format
     method -- method of imputation in string format (median/mean/default/empty)
     """
-    if(method == 'median'):
+    if method == 'median':
         df[column].fillna((df[column].median()), inplace=True)
-    elif(method == 'mean'):
+    elif method == 'mean':
         df[column].fillna((df[column].mean()), inplace=True)
-    elif(method == 'default'):
+    elif method == 'default':
         df[column].fillna(df[column].mode().iloc[0], inplace=True)
-    elif(method == 'empty'):
-        impute_empty_value(df,column)
+    elif method == 'empty':
+        impute_empty_value(df, column)
     return 0
 
-def impute_empty_value(df,column):
+
+def impute_empty_value(df: pd.DataFrame, column):
     """
-    Replace Nan values in a specified column by an apporpriate default value
+    Replace Nan values in a specified column by an appropriate default value
     """
-    if(df.dtypes[column] == np.object):
+    if df.dtypes[column] == np.object:
         df[column].fillna("", inplace=True)
-    elif(df.dtypes[column] == np.int64):
+    elif df.dtypes[column] == np.int64:
         df[column].fillna(0, inplace=True)
-    elif(df.dtypes[column] == np.float64):
+    elif df.dtypes[column] == np.float64:
         df[column].fillna(0.0, inplace=True)

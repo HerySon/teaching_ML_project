@@ -29,5 +29,6 @@ black
 # utilities
 # six>=1.14
 joblib
+pyyaml>=6.0
 # memoized-property
 # termcolor
