@@ -1,1 +1,2 @@
-processing_date    selection_method    percentage    imputation_method    outliers-action    scaler-type    encoder-type    output_filename
+processing_date    selection_method    percentage    imputation_method    outliers-action    scaler-type    encoder-type    output_filename         commande utilisée
+02/12/2022         None                70            median               delete             standard       OneHotEncoder   cleaned_OFF_dataset.csv preprocess_dataset.py -f data/en.openfoodfacts.org.products.csv -o cleaned_OFF_dataset.csv -p 70 -i median -a delete -t standard
