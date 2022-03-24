@@ -11,6 +11,7 @@ scikit-learn >=1.0.2
 dash
 plotly
 dash_bootstrap_components
+gensim
 
 # tests/linter
 black
